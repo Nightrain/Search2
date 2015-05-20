@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SearchModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SearchModelStoreContainer">
+          <EntitySet Name="Animal" EntityType="SearchModel.Store.Animal" store:Type="Tables" store:Schema="dbo" store:Name="Animal">
+            <DefiningQuery>SELECT 
+      [Animal].[ID] AS [ID], 
+      [Animal].[Sex] AS [Sex], 
+      [Animal].[CurrLocation] AS [CurrLocation]
+      FROM [dbo].[Animal] AS [Animal]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="AnimalPath" EntityType="SearchModel.Store.AnimalPath" store:Type="Tables" store:Schema="dbo" store:Name="AnimalPath">
+            <DefiningQuery>SELECT 
+      [AnimalPath].[ID] AS [ID], 
+      [AnimalPath].[CurrLocation] AS [CurrLocation], 
+      [AnimalPath].[TimeStep] AS [TimeStep], 
+      [AnimalPath].[AnimalID] AS [AnimalID], 
+      [AnimalPath].[Suitable] AS [Suitable]
+      FROM [dbo].[AnimalPath] AS [AnimalPath]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Search.dbo.Animal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Sex" Type="varchar" MaxLength="10" />
+          <Property Name="CurrLocation" Type="geometry" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Search.dbo.AnimalPath' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="AnimalPath">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CurrLocation" />
+            <PropertyRef Name="TimeStep" />
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CurrLocation" Type="geometry" Nullable="false" />
+          <Property Name="TimeStep" Type="int" Nullable="false" />
+          <Property Name="AnimalID" Type="int" Nullable="false" />
+          <Property Name="Suitable" Type="bit" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SearchModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AnimalEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Animals" EntityType="SearchModel.Animal" />
+          <EntitySet Name="AnimalPaths" EntityType="SearchModel.AnimalPath" />
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Sex" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="CurrLocation" Type="Geometry" />
+        </EntityType>
+        <EntityType Name="AnimalPath">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CurrLocation" />
+            <PropertyRef Name="TimeStep" />
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CurrLocation" Type="Geometry" Nullable="false" />
+          <Property Name="TimeStep" Type="Int32" Nullable="false" />
+          <Property Name="AnimalID" Type="Int32" Nullable="false" />
+          <Property Name="Suitable" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SearchModelStoreContainer" CdmEntityContainer="AnimalEntities">
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="SearchModel.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnimalPaths">
+            <EntityTypeMapping TypeName="SearchModel.AnimalPath">
+              <MappingFragment StoreEntitySet="AnimalPath">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
+                <ScalarProperty Name="TimeStep" ColumnName="TimeStep" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="Suitable" ColumnName="Suitable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

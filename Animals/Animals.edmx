@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModularSearch.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ModularSearchStoreContainer">
+          <EntitySet Name="Animal" EntityType="ModularSearch.Store.Animal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AnimalPath" EntityType="ModularSearch.Store.AnimalPath" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AnimalPath_AnimalPath" Association="ModularSearch.Store.FK_AnimalPath_AnimalPath">
+            <End Role="Animal" EntitySet="Animal" />
+            <End Role="AnimalPath" EntitySet="AnimalPath" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Sex" Type="varchar" MaxLength="10" />
+          <Property Name="CurrLocation" Type="geometry" />
+          <Property Name="CurrEnergy" Type="decimal" />
+        </EntityType>
+        <EntityType Name="AnimalPath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AnimalID" Type="int" Nullable="false" />
+          <Property Name="CurrLocation" Type="geometry" />
+          <Property Name="Suitable" Type="bit" />
+          <Property Name="TimeStep" Type="int" />
+        </EntityType>
+        <Association Name="FK_AnimalPath_AnimalPath">
+          <End Role="Animal" Type="ModularSearch.Store.Animal" Multiplicity="1" />
+          <End Role="AnimalPath" Type="ModularSearch.Store.AnimalPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AnimalPath">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModularSearch" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AnimalEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Animals" EntityType="ModularSearch.Animal" />
+          <EntitySet Name="AnimalPaths" EntityType="ModularSearch.AnimalPath" />
+          <AssociationSet Name="AnimalAnimalPath" Association="ModularSearch.AnimalAnimalPath">
+            <End Role="Animal" EntitySet="Animals" />
+            <End Role="AnimalPath" EntitySet="AnimalPaths" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Sex" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Geometry" Name="CurrLocation" />
+          <Property Type="Decimal" Name="CurrEnergy" Precision="18" Scale="0" />
+          <NavigationProperty Name="AnimalPaths" Relationship="ModularSearch.AnimalAnimalPath" FromRole="Animal" ToRole="AnimalPath" />
+        </EntityType>
+        <EntityType Name="AnimalPath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Geometry" Name="CurrLocation" />
+          <Property Type="Int32" Name="TimeStep" />
+          <Property Type="Int32" Name="AnimalID" Nullable="false" />
+          <Property Type="Boolean" Name="Suitable" />
+          <NavigationProperty Name="Animal" Relationship="ModularSearch.AnimalAnimalPath" FromRole="AnimalPath" ToRole="Animal" />
+        </EntityType>
+        <Association Name="AnimalAnimalPath">
+          <End Type="ModularSearch.Animal" Role="Animal" Multiplicity="1" />
+          <End Type="ModularSearch.AnimalPath" Role="AnimalPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animal">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AnimalPath">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModularSearchStoreContainer" CdmEntityContainer="AnimalEntities">
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="ModularSearch.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="CurrEnergy" ColumnName="CurrEnergy" />
+                <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnimalPaths">
+            <EntityTypeMapping TypeName="ModularSearch.AnimalPath">
+              <MappingFragment StoreEntitySet="AnimalPath">
+                <ScalarProperty Name="Suitable" ColumnName="Suitable" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="TimeStep" ColumnName="TimeStep" />
+                <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
