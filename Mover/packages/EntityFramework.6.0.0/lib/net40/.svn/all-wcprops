@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.0.0/lib/net40
+END
+EntityFramework.dll
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.0.0/lib/net40/EntityFramework.dll
+END
+EntityFramework.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.0.0/lib/net40/EntityFramework.xml
+END
+EntityFramework.SqlServer.dll
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.0.0/lib/net40/EntityFramework.SqlServer.dll
+END
+EntityFramework.SqlServer.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.0.0/lib/net40/EntityFramework.SqlServer.xml
+END

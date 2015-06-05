@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools
+END
+EntityFramework.psd1
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/EntityFramework.psd1
+END
+init.ps1
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/init.ps1
+END
+EntityFramework.PowerShell.dll
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/EntityFramework.PowerShell.dll
+END
+migrate.exe
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/migrate.exe
+END
+install.ps1
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/install.ps1
+END
+EntityFramework.psm1
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/EntityFramework.psm1
+END
+about_EntityFramework.help.txt
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/about_EntityFramework.help.txt
+END
+EntityFramework.PowerShell.Utility.dll
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/!svn/ver/319/Search%20Version%202/packages/EntityFramework.6.1.2/tools/EntityFramework.PowerShell.Utility.dll
+END

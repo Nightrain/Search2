@@ -44,6 +44,15 @@ namespace Utility
                 return o;
             }
 
+            public static object DeserializeFromFile(string inFileName, Type inType)
+            {
+               XmlSerializer ser = new XmlSerializer(inType);
+               StreamReader sr = new StreamReader(inFileName);
+               object o = ser.Deserialize(sr);
+               sr.Close();
+               return o;
+            }
+
             public static void SerializeDataContractObjectToFile(string inFileName, object inO)
             {
                 GetDirectory(inFileName);

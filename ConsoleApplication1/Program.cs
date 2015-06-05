@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using log4net;
+using Map_Manager;
 
 namespace ModularSearch
 {
@@ -20,6 +21,16 @@ namespace ModularSearch
 		{
          mlog.Debug("Starting UP");
 			bool restart = System.Convert.ToBoolean(args[0]);
+
+         Animal a = new Animal();
+         a.WriteOutAttributes();
+         var t = a.GetAttributesFromFile();
+
+
+
+
+
+         var mySim = (Simulation)Utility.SerializeHelper.DeserializeFromFile("Sim.xml", typeof(Simulation));
 			InitializeDatabase(restart);
 			if (!restart) // if a restart data should be all loaded
 			{

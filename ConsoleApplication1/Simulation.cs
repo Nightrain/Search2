@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ModularSearch
 {
@@ -11,6 +12,7 @@ namespace ModularSearch
     public class Simulation
     {
         #region privateFields
+
         private DateTime _StartDate;
         private DateTime _EndSeasonDate;
         private int _NumYears;
@@ -20,12 +22,13 @@ namespace ModularSearch
 
         #region Properties
         [DataMember(Name = "StartDate")]
+        [XmlAttribute("DateTime")]
         public DateTime StartDate
         {
             get { return _StartDate; }
-            set { _StartDate = value; }
+            set { _StartDate =  value; }
         }
-
+    
         [DataMember(Name = "EndSeasonDate")]
         public DateTime EndSeasonDate
         {
