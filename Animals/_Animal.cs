@@ -13,7 +13,6 @@ namespace Animals
       private SpeciesAttributes myAttributes = new SpeciesAttributes();
       private MovementModifiers myModifiers = new MovementModifiers();
 
-   
       #endregion fields
 
       #region Public Methods
@@ -29,11 +28,7 @@ namespace Animals
          this.mv.Risk = site.RISK;
       }
 
-
-      public MovementModifiers GetAttributesFromFile()
-      {
-         return (MovementModifiers)Utility.SerializeHelper.DeserializeFromFile("modifiers.xml", typeof(MovementModifiers));
-      }
+     
       public void WriteOutAttributes()
       {
          AnimalModifiers am = new AnimalModifiers();
@@ -49,16 +44,17 @@ namespace Animals
          TemporalModifiers tm = new TemporalModifiers();
          tm.Type = "Hourly";
          tm.StartTime = 18;
-         tm.CaptureFood = .5;
+         tm.CaptureFood = 5;
          tm.EnergyUsed = 1;
          tm.MoveSpeed = .78;
          tm.MoveTurtosity = .06;
          tm.PerceptonModifier = 1;
          tm.PredationRisk = -1;
-          myModifiers.myTimeModifiers.Add (tm);
+         myModifiers.myTimeModifiers.Add(tm);
 
          Utility.SerializeHelper.SerializeObjectToFile("modifiers.xml", myModifiers);
-   }
+      }
+
       #endregion Public Methods
 
       #region Private Methods
@@ -105,6 +101,7 @@ namespace Animals
       #endregion Private Methods
 
       #region Properties
+
       public bool IsDead
       {
          get { return isDead; }

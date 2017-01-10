@@ -11,11 +11,12 @@ namespace Animals
 {
     using System;
     using System.Collections.Generic;
+
     
     public partial class AnimalPath
     {
         public int ID { get; set; }
-        public System.Data.Entity.Spatial.DbGeometry CurrLocation { get; set; }
+        public System.Data.Entity.Spatial.DbGeometry Location { get; set; }
         public Nullable<int> TimeStep { get; set; }
         public int AnimalID { get; set; }
         public Nullable<bool> Suitable { get; set; }

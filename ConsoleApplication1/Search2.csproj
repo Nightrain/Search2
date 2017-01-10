@@ -81,9 +81,11 @@
   <ItemGroup>
     <Compile Include="AnimalModifiers.cs" />
     <Compile Include="HomeRange.cs" />
+    <Compile Include="IniFiles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation.cs" />
+    <Compile Include="SimulationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

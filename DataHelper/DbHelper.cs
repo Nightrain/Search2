@@ -2,16 +2,18 @@
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
+using log4net;
 using ModularSearch;
 using Utility;
-using log4net;
 
 namespace DataHelper
 {
    public class DbHelper
    {
       private ILog mLog = LogManager.GetLogger("Mover");
+
       #region Public Methods
+
       public bool DidCross(DbGeometry start, DbGeometry end)
       {
          using (SearchDataEntities me = new SearchDataEntities())
@@ -21,7 +23,6 @@ namespace DataHelper
             var startPoly = me.base_move.Where(f => f.geom.Contains(start)).FirstOrDefault();
             return line.Crosses(startPoly.geom);
          }
-    
       }
 
       public double? GetLengthToIntersection(MoveValues inOutMoveValues)
@@ -34,10 +35,10 @@ namespace DataHelper
             DbGeometry crossOverPoint = line.Intersection(startPoly);
             inOutMoveValues.CrosOverPoint = crossOverPoint;
             line = MakeLine(inOutMoveValues.CurrentLocation, crossOverPoint);
-            return  line.Length;
+            return line.Length;
          }
       }
-      
+
       private base_move GetBoundaryPolyGon(MoveValues inOutMoveValues)
       {
          using (SearchDataEntities me = new SearchDataEntities())
@@ -49,8 +50,8 @@ namespace DataHelper
             base_move borderPoly = twoPolygons.Where(p => p != startPoly).FirstOrDefault();
             return borderPoly;
          }
-
       }
+
       public base_food GetFoodSite(DbGeometry inLocation)
       {
          base_food bf = null;
@@ -121,8 +122,11 @@ namespace DataHelper
          }
          return true;
       }
-      #endregion
+
+      #endregion Public Methods
+
       #region Private Methods
+
       private static DbGeometry MakeLine(DbGeometry start, DbGeometry end)
       {
          StringBuilder sb = new StringBuilder();
@@ -133,6 +137,7 @@ namespace DataHelper
          DbGeometry line = DbGeometry.FromText("LINESTRING(" + sb.ToString() + ")", 0);
          return line;
       }
-      #endregion
+
+      #endregion Private Methods
    }
 }

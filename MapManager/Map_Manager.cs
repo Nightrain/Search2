@@ -32,6 +32,18 @@ namespace Map_Manager
       }
 
 		#endregion Properties 
+#region PublicMethods
+      public void WriteFile()
+      {
+      //   Utility.SerializeHelper.SerializeObjectToFile("bobmaps.xml", mm);
+      }
+
+      public MapManager GetFromFile()
+      {
+         return (MapManager)Utility.SerializeHelper.DeserializeFromFile("bobmaps.xml", typeof(MapManager));
+      }
+#endregion
+
    }
 
    [Serializable]

@@ -20,7 +20,9 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Sex" Type="varchar" MaxLength="10" />
           <Property Name="CurrLocation" Type="geometry" />
-          <Property Name="CurrEnergy" Type="decimal" />
+          <Property Name="CurrEnergy" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="CurrRisk" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="CurrrentState" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="AnimalPath">
           <Key>
@@ -63,15 +65,17 @@
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Sex" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="Geometry" Name="CurrLocation" />
-          <Property Type="Decimal" Name="CurrEnergy" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="CurrEnergy" Precision="8" Scale="2" />
           <NavigationProperty Name="AnimalPaths" Relationship="ModularSearch.AnimalAnimalPath" FromRole="Animal" ToRole="AnimalPath" />
+          <Property Type="Decimal" Name="CurrRisk" Precision="8" Scale="2" />
+          <Property Type="String" Name="CurrrentState" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AnimalPath">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Geometry" Name="CurrLocation" />
+          <Property Type="Geometry" Name="Location" />
           <Property Type="Int32" Name="TimeStep" />
           <Property Type="Int32" Name="AnimalID" Nullable="false" />
           <Property Type="Boolean" Name="Suitable" />
@@ -98,6 +102,8 @@
           <EntitySetMapping Name="Animals">
             <EntityTypeMapping TypeName="ModularSearch.Animal">
               <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="CurrrentState" ColumnName="CurrrentState" />
+                <ScalarProperty Name="CurrRisk" ColumnName="CurrRisk" />
                 <ScalarProperty Name="CurrEnergy" ColumnName="CurrEnergy" />
                 <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
@@ -111,7 +117,7 @@
                 <ScalarProperty Name="Suitable" ColumnName="Suitable" />
                 <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
                 <ScalarProperty Name="TimeStep" ColumnName="TimeStep" />
-                <ScalarProperty Name="CurrLocation" ColumnName="CurrLocation" />
+                <ScalarProperty Name="Location" ColumnName="CurrLocation" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

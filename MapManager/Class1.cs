@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Map_Manager
 {
-   public class Class1
+   public class class1
+
    {
       MapManager mm = new MapManager();
       MapSwitchTrigger mst = new MapSwitchTrigger();

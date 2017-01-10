@@ -23,6 +23,9 @@ namespace Animals
         public string Sex { get; set; }
         public System.Data.Entity.Spatial.DbGeometry CurrLocation { get; set; }
         public Nullable<decimal> CurrEnergy { get; set; }
+        public Nullable<decimal> CurrRisk { get; set; }
+        public string CurrrentState { get; set; }
+    
         public virtual ICollection<AnimalPath> AnimalPaths { get; set; }
     }
 }

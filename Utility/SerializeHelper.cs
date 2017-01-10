@@ -21,6 +21,15 @@ namespace Utility
                 sw.Close();
             }
 
+            public static void SerializeObjectToFile(string inFileName, Type t)
+            {
+               GetDirectory(inFileName);
+               StreamWriter sw = new StreamWriter(inFileName);
+               XmlSerializer ser = new XmlSerializer(t);
+               ser.Serialize(sw, t);
+               sw.Close();
+            }
+
             private static void GetDirectory(string inFileName)
             {
                 string backupDir = Path.GetDirectoryName(inFileName);

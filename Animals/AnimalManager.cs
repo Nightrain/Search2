@@ -5,14 +5,18 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
+using Utility;
 
 namespace Animals
+ //  namespace ModularSearch
 {
 	public class AnimalManager
 	{
 		#region Fields (1) 
 
 		private List<Animal> myAnimals;
+      private List<AnimalModifiers> myAnimalModifiers;
+      private TemporalModifiers myTemporialModifiers;
       private static ILog mlog = LogManager.GetLogger("animalManager");
 
 		#endregion Fields 
@@ -23,6 +27,9 @@ namespace Animals
 		public AnimalManager()
 		{
 			myAnimals = new List<Animal>();
+         //myAnimalModifiers = new List<AnimalModifiers>();
+         //myAnimalModifiers = (List < AnimalModifiers > )Utility.SerializeHelper.DeserializeFromFile(@"F:\SearchInputAndBackup\XML startup files\modifiers.xml", typeof(List<AnimalModifiers>));
+         //myTemporialModifiers = (TemporalModifiers)Utility.SerializeHelper.DeserializeFromFile(@"F:\SearchInputAndBackup\XML startup files\TimeModifiers.xml", typeof(TemporalModifiers));
 		}
 
 		#endregion Constructors 
@@ -31,16 +38,20 @@ namespace Animals
 
 		#region PublicMethods
 
-		public void Initialize()
+		public void Initialize(Init inValues)
 		{
 			this.DeleteAllAnimals();
 			this.GetNewAnimals();
-		}
+         myAnimalModifiers = (List<AnimalModifiers>)Utility.SerializeHelper.DeserializeFromFile(@"F:\SearchInputAndBackup\XML startup files\modifiers.xml", typeof(List<AnimalModifiers>));
+         myTemporialModifiers = (TemporalModifiers)Utility.SerializeHelper.DeserializeFromFile(@"F:\SearchInputAndBackup\XML startup files\TimeModifiers.xml", typeof(TemporalModifiers));
 
-		public void MoveTheAnimals()
+		}
+      public void MoveTheAnimals()
 		{
 			Console.WriteLine("Starting Move the Animals at " + DateTime.Now.ToLongTimeString());
-			List<AnimalPath> myPaths = new List<AnimalPath>();
+         mlog.Debug("Just starting move the animals");
+         mlog.Debug("we are going to move " + myAnimals.Count.ToString());
+	
 			Mover.Mover mover = new Mover.Mover();
 			for (int i = 0; i < 10; i++)
 			{
@@ -56,7 +67,7 @@ namespace Animals
 						ap.TimeStep = i;
 						a.Move_Values.TimeStep = i;
 						mover.move(a.Move_Values);
-						ap.CurrLocation = a.Move_Values.End;
+						ap.Location = a.Move_Values.End;
 						a.AnimalPaths.Add(ap);
 						
 					}
@@ -70,14 +81,14 @@ namespace Animals
 			Console.WriteLine("Finish Move the Animals at " + DateTime.Now.ToLongTimeString());
 		}
 
-     public void ChangeToDeadAnimal(Animal inA)
-      {
-         mlog.Debug("inside Change to dead animal for animal number " + inA.ID);
-        mlog.Debug("All we are doing is actually just removing him at this point");
-        myAnimals.Remove(inA);
-       
-      }
 
+      public void ReloadTheAnimals()
+      {
+         using (AnimalEntities ae = new AnimalEntities())
+         {
+            this.myAnimals = ae.Animals.ToList();
+         }
+   }
 		#endregion PublicMethods
 
 
@@ -124,7 +135,15 @@ namespace Animals
 		}
 
 
-		private void DeleteAllAnimals()
+      public void ChangeToDeadAnimal(Animal inA)
+      {
+         mlog.Debug("inside Change to dead animal for animal number " + inA.ID);
+         mlog.Debug("All we are doing is actually just removing him at this point");
+         myAnimals.Remove(inA);
+
+      }
+
+      private void DeleteAllAnimals()
 		{
 			using (AnimalEntities ae = new AnimalEntities())
 			{
@@ -135,6 +154,10 @@ namespace Animals
 			}
 		}
 
+      private void GetModifiers()
+      {
+         
+      }
 		private void GetNewAnimals()
 		{
 			List<float?> numFemales;
@@ -157,8 +180,8 @@ namespace Animals
 
 		private void UpdateAllAnimalsLocation(List<Animal> inA)
 		{
-			Parallel.ForEach(inA, a =>
-		//	foreach(Animal a in inA)
+		//	Parallel.ForEach(inA, a =>
+			foreach(Animal a in inA)
 				  {
 					  using (AnimalEntities ae = new AnimalEntities())
 					  {
@@ -170,7 +193,7 @@ namespace Animals
 						  ae.SaveChanges();
 					  }// end using
 				  }//end foreach scope
-				  );//end foreach loop
+				 // );//end foreach loop
 		}
 
 		private void UpdateAllAnimalsModifiers()
@@ -182,5 +205,7 @@ namespace Animals
 		}
 
 		#endregion PrivateMethods
-	}
+
+
+   }
 }//namespace 
